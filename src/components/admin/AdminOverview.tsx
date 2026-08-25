@@ -1,0 +1,497 @@
+import React, { useState } from 'react';
+import { 
+  Users, 
+  Car, 
+  Compass, 
+  DollarSign, 
+  Clock, 
+  LifeBuoy, 
+  TrendingUp, 
+  TrendingDown, 
+  Check, 
+  X, 
+  Eye, 
+  ArrowUpRight, 
+  CheckCircle2, 
+  XCircle, 
+  AlertTriangle,
+  ChevronRight,
+  ShieldCheck
+} from 'lucide-react';
+import { 
+  ResponsiveContainer, 
+  AreaChart, 
+  Area, 
+  BarChart, 
+  Bar, 
+  PieChart, 
+  Pie, 
+  Cell, 
+  XAxis, 
+  YAxis, 
+  Tooltip, 
+  CartesianGrid,
+  Legend 
+} from 'recharts';
+import { useRide } from '../../context/RideContext';
+import { InteractiveMap } from '../common/InteractiveMap';
+import { AdminTab } from './AdminSidebar';
+
+const BOOKING_CHART_DATA = [
+  { day: 'Mon', bookings: 420 },
+  { day: 'Tue', bookings: 580 },
+  { day: 'Wed', bookings: 720 },
+  { day: 'Thu', bookings: 690 },
+  { day: 'Fri', bookings: 860 },
+  { day: 'Sat', bookings: 940 },
+  { day: 'Sun', bookings: 780 },
+];
+
+const REVENUE_CHART_DATA = [
+  { day: 'Mon', revenue: 280000 },
+  { day: 'Tue', revenue: 310000 },
+  { day: 'Wed', revenue: 350000 },
+  { day: 'Thu', revenue: 420000 },
+  { day: 'Fri', revenue: 480000 },
+  { day: 'Sat', revenue: 520000 },
+  { day: 'Sun', revenue: 390000 },
+];
+
+const PASSENGER_GROWTH_DATA = [
+  { month: 'Jan', users: 6200 },
+  { month: 'Feb', users: 8400 },
+  { month: 'Mar', users: 10100 },
+  { month: 'Apr', users: 11200 },
+  { month: 'May', users: 12542 },
+];
+
+const DRIVER_PIE_DATA = [
+  { name: 'Active', value: 1650, color: '#10B981' },
+  { name: 'On Trip', value: 420, color: '#F59E0B' },
+  { name: 'Offline', value: 245, color: '#64748B' },
+];
+
+interface AdminOverviewProps {
+  onNavigateTab: (tab: AdminTab) => void;
+}
+
+export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigateTab }) => {
+  const { 
+    platformStats, 
+    pendingApplications, 
+    approveDriverApplication, 
+    rejectDriverApplication, 
+    activities, 
+    showNotification 
+  } = useRide();
+
+  const [selectedDriverDetails, setSelectedDriverDetails] = useState<any | null>(null);
+
+  return (
+    <div className="space-y-6 overflow-y-auto pb-6">
+      {/* 6 Key Real-Time KPI Bento Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        {/* Total Passengers */}
+        <div 
+          onClick={() => onNavigateTab('passengers')}
+          className="bg-zinc-900 border border-zinc-800 p-4 rounded-3xl shadow-xl hover:border-zinc-700 transition-all cursor-pointer group"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Total Passengers</span>
+            <div className="w-8 h-8 rounded-2xl bg-zinc-800 text-slate-300 flex items-center justify-center border border-zinc-700/60">
+              <Users className="w-4 h-4" />
+            </div>
+          </div>
+          <h3 className="text-xl font-black text-white font-display mt-2">
+            {platformStats.totalPassengers.toLocaleString()}
+          </h3>
+          <div className="flex items-center gap-1 mt-1 text-[10px] font-mono font-semibold text-emerald-400">
+            <TrendingUp className="w-3 h-3 text-emerald-400" />
+            <span>+12.5% vs yesterday</span>
+          </div>
+        </div>
+
+        {/* Active Drivers */}
+        <div 
+          onClick={() => onNavigateTab('drivers')}
+          className="bg-zinc-900 border border-zinc-800 p-4 rounded-3xl shadow-xl hover:border-zinc-700 transition-all cursor-pointer group"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Active Drivers</span>
+            <div className="w-8 h-8 rounded-2xl bg-zinc-800 text-slate-300 flex items-center justify-center border border-zinc-700/60">
+              <Car className="w-4 h-4" />
+            </div>
+          </div>
+          <h3 className="text-xl font-black text-white font-display mt-2">
+            {platformStats.activeDrivers.toLocaleString()}
+          </h3>
+          <div className="flex items-center gap-1 mt-1 text-[10px] font-mono font-semibold text-emerald-400">
+            <TrendingUp className="w-3 h-3 text-emerald-400" />
+            <span>+8.3% vs yesterday</span>
+          </div>
+        </div>
+
+        {/* Trips Today */}
+        <div 
+          onClick={() => onNavigateTab('bookings')}
+          className="bg-zinc-900 border border-zinc-800 p-4 rounded-3xl shadow-xl hover:border-zinc-700 transition-all cursor-pointer group"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Trips Today</span>
+            <div className="w-8 h-8 rounded-2xl bg-zinc-800 text-slate-300 flex items-center justify-center border border-zinc-700/60">
+              <Compass className="w-4 h-4" />
+            </div>
+          </div>
+          <h3 className="text-xl font-black text-white font-display mt-2">
+            {platformStats.tripsToday.toLocaleString()}
+          </h3>
+          <div className="flex items-center gap-1 mt-1 text-[10px] font-mono font-semibold text-emerald-400">
+            <TrendingUp className="w-3 h-3 text-emerald-400" />
+            <span>+15.7% vs yesterday</span>
+          </div>
+        </div>
+
+        {/* Revenue Today */}
+        <div 
+          onClick={() => onNavigateTab('earnings')}
+          className="bg-zinc-900 border border-zinc-800 p-4 rounded-3xl shadow-xl hover:border-zinc-700 transition-all cursor-pointer group"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Revenue Today</span>
+            <div className="w-8 h-8 rounded-2xl bg-zinc-800 text-slate-300 flex items-center justify-center border border-zinc-700/60">
+              <DollarSign className="w-4 h-4" />
+            </div>
+          </div>
+          <h3 className="text-xl font-black text-amber-400 font-display mt-2">
+            ₱{platformStats.revenueToday.toLocaleString()}
+          </h3>
+          <div className="flex items-center gap-1 mt-1 text-[10px] font-mono font-semibold text-emerald-400">
+            <TrendingUp className="w-3 h-3 text-emerald-400" />
+            <span>+18.6% vs yesterday</span>
+          </div>
+        </div>
+
+        {/* Pending Drivers */}
+        <div 
+          onClick={() => onNavigateTab('drivers')}
+          className="bg-zinc-900 border border-zinc-800 p-4 rounded-3xl shadow-xl hover:border-zinc-700 transition-all cursor-pointer group"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Pending Drivers</span>
+            <div className="w-8 h-8 rounded-2xl bg-zinc-800 text-slate-300 flex items-center justify-center border border-zinc-700/60">
+              <Clock className="w-4 h-4" />
+            </div>
+          </div>
+          <h3 className="text-xl font-black text-white font-display mt-2">
+            {platformStats.pendingDrivers}
+          </h3>
+          <div className="flex items-center gap-1 mt-1 text-[10px] font-mono font-semibold text-slate-400">
+            <TrendingDown className="w-3 h-3 text-slate-400" />
+            <span>-5.2% vs yesterday</span>
+          </div>
+        </div>
+
+        {/* Support Tickets */}
+        <div 
+          onClick={() => onNavigateTab('support')}
+          className="bg-zinc-900 border border-zinc-800 p-4 rounded-3xl shadow-xl hover:border-zinc-700 transition-all cursor-pointer group"
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Support Desk</span>
+            <div className="w-8 h-8 rounded-2xl bg-zinc-800 text-slate-300 flex items-center justify-center border border-zinc-700/60">
+              <LifeBuoy className="w-4 h-4" />
+            </div>
+          </div>
+          <h3 className="text-xl font-black text-white font-display mt-2">
+            {platformStats.supportTickets}
+          </h3>
+          <div className="flex items-center gap-1 mt-1 text-[10px] font-mono font-semibold text-rose-400">
+            <TrendingUp className="w-3 h-3 text-rose-400" />
+            <span>+10.0% vs yesterday</span>
+          </div>
+        </div>
+      </div>
+
+      {/* 4 Interactive Charts Grid in Bento Cards */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+        {/* Chart 1: Daily Bookings */}
+        <div className="bg-zinc-900 border border-zinc-800 p-5 rounded-3xl shadow-2xl space-y-3">
+          <div className="flex items-center justify-between">
+            <div>
+              <h4 className="text-xs font-mono font-bold text-white uppercase tracking-wider">Daily Bookings</h4>
+              <p className="text-[10px] text-slate-500 font-mono">7-Day Request Volume</p>
+            </div>
+            <span className="text-xs font-mono font-black text-amber-400">860 Peak</span>
+          </div>
+          <div className="h-44 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={BOOKING_CHART_DATA}>
+                <defs>
+                  <linearGradient id="bookingGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#F59E0B" stopOpacity={0.4}/>
+                    <stop offset="95%" stopColor="#F59E0B" stopOpacity={0.0}/>
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#27272A" />
+                <XAxis dataKey="day" tick={{ fontSize: 10, fill: '#71717A' }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 10, fill: '#71717A' }} axisLine={false} tickLine={false} />
+                <Tooltip contentStyle={{ backgroundColor: '#09090B', border: '1px solid #27272A', borderRadius: '12px', color: '#FFF', fontSize: '11px', fontFamily: 'monospace' }} />
+                <Area type="monotone" dataKey="bookings" stroke="#F59E0B" strokeWidth={2.5} fill="url(#bookingGrad)" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Chart 2: Weekly Revenue */}
+        <div className="bg-zinc-900 border border-zinc-800 p-5 rounded-3xl shadow-2xl space-y-3">
+          <div className="flex items-center justify-between">
+            <div>
+              <h4 className="text-xs font-mono font-bold text-white uppercase tracking-wider">Weekly Revenue</h4>
+              <p className="text-[10px] text-slate-500 font-mono">Gross Fare Volume (₱)</p>
+            </div>
+            <span className="text-xs font-mono font-black text-emerald-400">₱2.75M Total</span>
+          </div>
+          <div className="h-44 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={REVENUE_CHART_DATA}>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#27272A" />
+                <XAxis dataKey="day" tick={{ fontSize: 10, fill: '#71717A' }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 10, fill: '#71717A' }} axisLine={false} tickLine={false} tickFormatter={v => `₱${v / 1000}k`} />
+                <Tooltip 
+                  formatter={(val: any) => [`₱${val.toLocaleString()}`, 'Revenue']}
+                  contentStyle={{ backgroundColor: '#09090B', border: '1px solid #27272A', borderRadius: '12px', color: '#FFF', fontSize: '11px', fontFamily: 'monospace' }}
+                />
+                <Bar dataKey="revenue" fill="#10B981" radius={[6, 6, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Chart 3: Driver Activity Donut */}
+        <div className="bg-zinc-900 border border-zinc-800 p-5 rounded-3xl shadow-2xl space-y-3">
+          <div className="flex items-center justify-between">
+            <div>
+              <h4 className="text-xs font-mono font-bold text-white uppercase tracking-wider">Driver Activity</h4>
+              <p className="text-[10px] text-slate-500 font-mono">2,315 Fleet Total</p>
+            </div>
+            <span className="text-xs font-mono font-black text-emerald-400">71.3% Active</span>
+          </div>
+          <div className="h-44 w-full flex items-center justify-center">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={DRIVER_PIE_DATA}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={36}
+                  outerRadius={56}
+                  paddingAngle={4}
+                  dataKey="value"
+                >
+                  {DRIVER_PIE_DATA.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip contentStyle={{ backgroundColor: '#09090B', border: '1px solid #27272A', borderRadius: '12px', color: '#FFF', fontSize: '11px', fontFamily: 'monospace' }} />
+                <Legend 
+                  verticalAlign="bottom" 
+                  height={24} 
+                  wrapperStyle={{ fontSize: '10px', color: '#71717A', fontFamily: 'monospace' }} 
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Chart 4: Passenger Growth */}
+        <div className="bg-zinc-900 border border-zinc-800 p-5 rounded-3xl shadow-2xl space-y-3">
+          <div className="flex items-center justify-between">
+            <div>
+              <h4 className="text-xs font-mono font-bold text-white uppercase tracking-wider">Passenger Growth</h4>
+              <p className="text-[10px] text-slate-500 font-mono">Monthly Acquisition</p>
+            </div>
+            <span className="text-xs font-mono font-black text-blue-400">12,542 Active</span>
+          </div>
+          <div className="h-44 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={PASSENGER_GROWTH_DATA}>
+                <defs>
+                  <linearGradient id="userGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.4}/>
+                    <stop offset="95%" stopColor="#3B82F6" stopOpacity={0.0}/>
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#27272A" />
+                <XAxis dataKey="month" tick={{ fontSize: 10, fill: '#71717A' }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fontSize: 10, fill: '#71717A' }} axisLine={false} tickLine={false} tickFormatter={v => `${v / 1000}k`} />
+                <Tooltip contentStyle={{ backgroundColor: '#09090B', border: '1px solid #27272A', borderRadius: '12px', color: '#FFF', fontSize: '11px', fontFamily: 'monospace' }} />
+                <Area type="monotone" dataKey="users" stroke="#3B82F6" strokeWidth={2.5} fill="url(#userGrad)" />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      </div>
+
+      {/* 3 Live Operational Bento Panels */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        {/* Panel 1: Recent Activities Feed */}
+        <div className="bg-zinc-900 border border-zinc-800 p-5 rounded-3xl shadow-2xl space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></div>
+              <h3 className="text-sm font-bold text-white font-display">Recent Activities</h3>
+            </div>
+            <span className="text-[10px] font-mono text-amber-400 uppercase tracking-wider">Live Stream</span>
+          </div>
+
+          <div className="space-y-2.5">
+            {(activities || []).slice(0, 5).map(act => (
+              <div key={act.id} className="flex items-start gap-3 p-3 rounded-2xl bg-zinc-950 border border-zinc-800/80">
+                <div className="w-7 h-7 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center shrink-0 mt-0.5">
+                  <CheckCircle2 className="w-4 h-4" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-semibold text-slate-200 leading-snug">{act.text}</p>
+                  <span className="text-[10px] text-slate-500 font-mono">{act.time}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <button
+            onClick={() => showNotification('Activity Audit Log', 'Showing all 148 automated dispatch events for today.', 'info')}
+            className="w-full py-2.5 bg-zinc-800 hover:bg-zinc-700 text-slate-200 text-xs font-mono font-bold rounded-2xl transition-colors cursor-pointer border border-zinc-700"
+          >
+            View Full Activity Log
+          </button>
+        </div>
+
+        {/* Panel 2: Pending Driver Applications Approval Workflow */}
+        <div className="bg-zinc-900 border border-zinc-800 p-5 rounded-3xl shadow-2xl space-y-4 lg:col-span-2">
+          <div className="flex items-center justify-between">
+            <div>
+              <h3 className="text-sm font-bold text-white font-display">Pending Driver Partner Audits</h3>
+              <p className="text-xs text-slate-400">Review vehicle registration and grant platform access</p>
+            </div>
+            <span className="px-3 py-1 bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-mono font-bold rounded-full">
+              {pendingApplications.filter(a => a.status === 'pending').length} Pending
+            </span>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs">
+              <thead>
+                <tr className="border-b border-zinc-800 text-slate-500 uppercase text-[10px] font-mono tracking-wider">
+                  <th className="pb-2.5 font-bold">Driver Name</th>
+                  <th className="pb-2.5 font-bold">Vehicle Info</th>
+                  <th className="pb-2.5 font-bold">Plate Number</th>
+                  <th className="pb-2.5 font-bold">Submitted</th>
+                  <th className="pb-2.5 font-bold text-center">Status</th>
+                  <th className="pb-2.5 font-bold text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-zinc-800/80">
+                {pendingApplications.map(app => (
+                  <tr key={app.id} className="hover:bg-zinc-800/40 transition-colors">
+                    <td className="py-3">
+                      <div className="flex items-center gap-2.5">
+                        <img
+                          src={app.avatar}
+                          alt={app.driverName}
+                          className="w-8 h-8 rounded-xl object-cover border border-zinc-700"
+                        />
+                        <div>
+                          <p className="font-bold text-white font-display">{app.driverName}</p>
+                          <p className="text-[10px] text-slate-500 font-mono">{app.email}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-3 text-slate-300 font-medium">{app.vehicle}</td>
+                    <td className="py-3 font-mono font-bold text-amber-400">{app.plateNumber}</td>
+                    <td className="py-3 text-slate-500 font-mono text-[11px]">{app.submittedDate}</td>
+                    <td className="py-3 text-center">
+                      <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-full uppercase ${
+                        app.status === 'approved' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
+                        app.status === 'rejected' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' :
+                        'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                      }`}>
+                        {app.status}
+                      </span>
+                    </td>
+                    <td className="py-3 text-right">
+                      {app.status === 'pending' ? (
+                        <div className="flex items-center justify-end gap-1.5">
+                          <button
+                            onClick={() => approveDriverApplication(app.id)}
+                            id={`btn-approve-driver-${app.id}`}
+                            className="p-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition-colors cursor-pointer"
+                            title="Approve Driver Application"
+                          >
+                            <Check className="w-3.5 h-3.5" />
+                          </button>
+                          <button
+                            onClick={() => rejectDriverApplication(app.id)}
+                            id={`btn-reject-driver-${app.id}`}
+                            className="p-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded-lg transition-colors cursor-pointer"
+                            title="Reject Application"
+                          >
+                            <X className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      ) : (
+                        <span className="text-[11px] text-slate-600 font-mono italic">Resolved</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="flex items-center justify-between text-xs text-slate-500 font-mono pt-2 border-t border-zinc-800">
+            <span>Showing {pendingApplications.length} entries</span>
+            <div className="flex gap-1">
+              <button className="px-2.5 py-1 bg-zinc-800 rounded-lg text-[10px] text-slate-400 border border-zinc-700">Prev</button>
+              <button className="px-2.5 py-1 bg-amber-500 text-black font-black rounded-lg text-[10px]">1</button>
+              <button className="px-2.5 py-1 bg-zinc-800 rounded-lg text-[10px] text-slate-400 border border-zinc-700">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Live Fleet Dispatch Radar Bento Box */}
+      <div className="bg-zinc-900 border border-zinc-800 p-5 rounded-3xl shadow-2xl space-y-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
+          <div>
+            <div className="flex items-center gap-2">
+              <h3 className="text-sm font-bold text-white font-display">Live Fleet Dispatch Radar & Demand Heatmap</h3>
+              <span className="text-[10px] bg-red-500/10 text-red-400 font-mono font-bold px-2 py-0.5 rounded-full border border-red-500/20">
+                LIVE
+              </span>
+            </div>
+            <p className="text-xs text-slate-500 font-mono">Real-time GPS coordinate telemetry and demand density across Metro Manila</p>
+          </div>
+
+          <div className="flex items-center gap-2 flex-wrap font-mono">
+            <button
+              onClick={() => onNavigateTab('live_trips')}
+              id="btn-overview-open-heatmap"
+              className="flex items-center gap-1.5 px-3 py-1 bg-amber-500 hover:bg-amber-400 text-black rounded-full text-xs font-bold transition-all shadow-md cursor-pointer"
+            >
+              <span>Explore Full Heatmap & Telemetry</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </button>
+            <span className="px-3 py-1 bg-amber-500/10 text-amber-400 rounded-full text-xs font-bold border border-amber-500/20">
+              On Trip: 420
+            </span>
+            <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 rounded-full text-xs font-bold border border-emerald-500/20">
+              Completed: 1,012
+            </span>
+          </div>
+        </div>
+
+        <InteractiveMap height="h-72" showHeatmap={true} showHeatmapLegend={true} />
+      </div>
+    </div>
+  );
+};
