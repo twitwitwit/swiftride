@@ -8,9 +8,6 @@ import { AdminBookings } from './AdminBookings';
 import { AdminEarnings } from './AdminEarnings';
 import { AdminSupport } from './AdminSupport';
 import { AdminLiveMap } from './AdminLiveMap';
-import { AdminReports } from './AdminReports';
-import { AdminNotifications } from './AdminNotifications';
-import { AdminSettings } from './AdminSettings';
 import { useRide } from '../../context/RideContext';
 
 export const AdminDashboard: React.FC = () => {
@@ -29,19 +26,19 @@ export const AdminDashboard: React.FC = () => {
       case 'drivers':
         return { title: 'Driver Partners Fleet', subtitle: 'Review verified fleet and pending onboarding applications' };
       case 'live_trips':
-        return { title: 'Live Fleet Radar & Demand Heatmap', subtitle: 'Real-time GPS telemetry and vehicle positioning across Metro Manila' };
+        return { title: 'Live Fleet Radar', subtitle: 'Real-time GPS telemetry and vehicle positioning' };
       case 'bookings':
         return { title: 'Bookings & Dispatch', subtitle: 'Ride orders log, fares, and route details' };
       case 'earnings':
         return { title: 'Revenue & Commission', subtitle: 'Financial settlement, gross volume, and payouts' };
       case 'reports':
-        return { title: 'Fleet Reports & Intelligence', subtitle: 'Export certified operational statements, LTFRB compliance dossiers, and settlements' };
+        return { title: 'Analytics & Heatmaps', subtitle: 'Peak hours, route density, and growth reports' };
       case 'support':
         return { title: 'Support & Safety Desk', subtitle: 'Resolve user tickets, safety incidents, and driver inquiries' };
       case 'notifications':
-        return { title: 'System Notifications & Broadcasts', subtitle: 'Real-time operational alerts, compliance audits, and driver push announcements' };
+        return { title: 'System Notifications', subtitle: 'Platform broadcasts, LTFRB regulatory notices, and server logs' };
       case 'settings':
-        return { title: 'Platform Operations Settings', subtitle: 'Base fares, surge multipliers, commissions, and API configurations' };
+        return { title: 'Platform Settings', subtitle: 'Base fares, surge multipliers, commissions, and API configurations' };
       default:
         return { title: 'Admin Console', subtitle: 'SwiftRide Central Operations' };
     }
@@ -73,10 +70,10 @@ export const AdminDashboard: React.FC = () => {
           {activeTab === 'live_trips' && <AdminLiveMap />}
           {activeTab === 'bookings' && <AdminBookings />}
           {activeTab === 'earnings' && <AdminEarnings />}
-          {activeTab === 'reports' && <AdminReports />}
+          {activeTab === 'reports' && <AdminOverview onNavigateTab={setActiveTab} />}
           {activeTab === 'support' && <AdminSupport />}
-          {activeTab === 'notifications' && <AdminNotifications />}
-          {activeTab === 'settings' && <AdminSettings />}
+          {activeTab === 'notifications' && <AdminOverview onNavigateTab={setActiveTab} />}
+          {activeTab === 'settings' && <AdminOverview onNavigateTab={setActiveTab} />}
         </main>
       </div>
     </div>

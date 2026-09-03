@@ -98,7 +98,7 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigateTab }) =
         >
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Total Passengers</span>
-            <div className="w-8 h-8 rounded-2xl bg-zinc-800 text-slate-300 flex items-center justify-center border border-zinc-700/60">
+            <div className="w-8 h-8 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center border border-blue-500/20">
               <Users className="w-4 h-4" />
             </div>
           </div>
@@ -106,7 +106,7 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigateTab }) =
             {platformStats.totalPassengers.toLocaleString()}
           </h3>
           <div className="flex items-center gap-1 mt-1 text-[10px] font-mono font-semibold text-emerald-400">
-            <TrendingUp className="w-3 h-3 text-emerald-400" />
+            <TrendingUp className="w-3 h-3" />
             <span>+12.5% vs yesterday</span>
           </div>
         </div>
@@ -118,7 +118,7 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigateTab }) =
         >
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Active Drivers</span>
-            <div className="w-8 h-8 rounded-2xl bg-zinc-800 text-slate-300 flex items-center justify-center border border-zinc-700/60">
+            <div className="w-8 h-8 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/20">
               <Car className="w-4 h-4" />
             </div>
           </div>
@@ -126,7 +126,7 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigateTab }) =
             {platformStats.activeDrivers.toLocaleString()}
           </h3>
           <div className="flex items-center gap-1 mt-1 text-[10px] font-mono font-semibold text-emerald-400">
-            <TrendingUp className="w-3 h-3 text-emerald-400" />
+            <TrendingUp className="w-3 h-3" />
             <span>+8.3% vs yesterday</span>
           </div>
         </div>
@@ -138,7 +138,7 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigateTab }) =
         >
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Trips Today</span>
-            <div className="w-8 h-8 rounded-2xl bg-zinc-800 text-slate-300 flex items-center justify-center border border-zinc-700/60">
+            <div className="w-8 h-8 rounded-2xl bg-purple-500/10 text-purple-400 flex items-center justify-center border border-purple-500/20">
               <Compass className="w-4 h-4" />
             </div>
           </div>
@@ -146,7 +146,7 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigateTab }) =
             {platformStats.tripsToday.toLocaleString()}
           </h3>
           <div className="flex items-center gap-1 mt-1 text-[10px] font-mono font-semibold text-emerald-400">
-            <TrendingUp className="w-3 h-3 text-emerald-400" />
+            <TrendingUp className="w-3 h-3" />
             <span>+15.7% vs yesterday</span>
           </div>
         </div>
@@ -158,7 +158,7 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigateTab }) =
         >
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Revenue Today</span>
-            <div className="w-8 h-8 rounded-2xl bg-zinc-800 text-slate-300 flex items-center justify-center border border-zinc-700/60">
+            <div className="w-8 h-8 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20">
               <DollarSign className="w-4 h-4" />
             </div>
           </div>
@@ -166,7 +166,7 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigateTab }) =
             ₱{platformStats.revenueToday.toLocaleString()}
           </h3>
           <div className="flex items-center gap-1 mt-1 text-[10px] font-mono font-semibold text-emerald-400">
-            <TrendingUp className="w-3 h-3 text-emerald-400" />
+            <TrendingUp className="w-3 h-3" />
             <span>+18.6% vs yesterday</span>
           </div>
         </div>
@@ -178,7 +178,7 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigateTab }) =
         >
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Pending Drivers</span>
-            <div className="w-8 h-8 rounded-2xl bg-zinc-800 text-slate-300 flex items-center justify-center border border-zinc-700/60">
+            <div className="w-8 h-8 rounded-2xl bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/20">
               <Clock className="w-4 h-4" />
             </div>
           </div>
@@ -186,7 +186,7 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigateTab }) =
             {platformStats.pendingDrivers}
           </h3>
           <div className="flex items-center gap-1 mt-1 text-[10px] font-mono font-semibold text-slate-400">
-            <TrendingDown className="w-3 h-3 text-slate-400" />
+            <TrendingDown className="w-3 h-3 text-amber-400" />
             <span>-5.2% vs yesterday</span>
           </div>
         </div>
@@ -198,7 +198,7 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigateTab }) =
         >
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">Support Desk</span>
-            <div className="w-8 h-8 rounded-2xl bg-zinc-800 text-slate-300 flex items-center justify-center border border-zinc-700/60">
+            <div className="w-8 h-8 rounded-2xl bg-rose-500/10 text-rose-400 flex items-center justify-center border border-rose-500/20">
               <LifeBuoy className="w-4 h-4" />
             </div>
           </div>
@@ -206,7 +206,7 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigateTab }) =
             {platformStats.supportTickets}
           </h3>
           <div className="flex items-center gap-1 mt-1 text-[10px] font-mono font-semibold text-rose-400">
-            <TrendingUp className="w-3 h-3 text-rose-400" />
+            <TrendingUp className="w-3 h-3" />
             <span>+10.0% vs yesterday</span>
           </div>
         </div>
@@ -463,34 +463,28 @@ export const AdminOverview: React.FC<AdminOverviewProps> = ({ onNavigateTab }) =
       <div className="bg-zinc-900 border border-zinc-800 p-5 rounded-3xl shadow-2xl space-y-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
           <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-sm font-bold text-white font-display">Live Fleet Dispatch Radar & Demand Heatmap</h3>
-              <span className="text-[10px] bg-red-500/10 text-red-400 font-mono font-bold px-2 py-0.5 rounded-full border border-red-500/20">
-                LIVE
-              </span>
-            </div>
-            <p className="text-xs text-slate-500 font-mono">Real-time GPS coordinate telemetry and demand density across Metro Manila</p>
+            <h3 className="text-sm font-bold text-white font-display">Live Fleet Dispatch Radar</h3>
+            <p className="text-xs text-slate-500 font-mono">Real-time GPS coordinate telemetry across Metro Manila</p>
           </div>
 
+          {/* 4 Live Count Badges */}
           <div className="flex items-center gap-2 flex-wrap font-mono">
-            <button
-              onClick={() => onNavigateTab('live_trips')}
-              id="btn-overview-open-heatmap"
-              className="flex items-center gap-1.5 px-3 py-1 bg-amber-500 hover:bg-amber-400 text-black rounded-full text-xs font-bold transition-all shadow-md cursor-pointer"
-            >
-              <span>Explore Full Heatmap & Telemetry</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </button>
             <span className="px-3 py-1 bg-amber-500/10 text-amber-400 rounded-full text-xs font-bold border border-amber-500/20">
               On Trip: 420
+            </span>
+            <span className="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-xs font-bold border border-blue-500/20">
+              Pending: 86
             </span>
             <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 rounded-full text-xs font-bold border border-emerald-500/20">
               Completed: 1,012
             </span>
+            <span className="px-3 py-1 bg-rose-500/10 text-rose-400 rounded-full text-xs font-bold border border-rose-500/20">
+              Cancelled: 67
+            </span>
           </div>
         </div>
 
-        <InteractiveMap height="h-72" showHeatmap={true} showHeatmapLegend={true} />
+        <InteractiveMap height="h-72" />
       </div>
     </div>
   );

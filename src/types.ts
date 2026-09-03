@@ -178,23 +178,6 @@ export interface PlatformStat {
   };
 }
 
-export interface DemandHeatmapZone {
-  id: string;
-  name: string;
-  city: string;
-  lat: number;
-  lng: number;
-  radiusMeters: number;
-  activeRequests: number; // e.g. 240 req/min
-  availableDrivers: number; // e.g. 28 drivers
-  surgeMultiplier: number; // e.g. 1.8x
-  intensity: number; // 0.1 to 1.0
-  trend: 'up' | 'down' | 'stable';
-  category: 'commercial' | 'airport' | 'residential' | 'transit' | 'entertainment';
-  avgWaitTimeMin: number;
-  recommendedIncentive?: number; // e.g. 50 (PHP)
-}
-
 export type ActivePlatformView = 
   | 'web'
   | 'dual'
