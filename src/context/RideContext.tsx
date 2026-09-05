@@ -102,7 +102,7 @@ interface RideContextType {
 const RideContext = createContext<RideContextType | undefined>(undefined);
 
 export const RideProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [platformView, setPlatformView] = useState<ActivePlatformView>('web');
+  const [platformView, setPlatformView] = useState<ActivePlatformView>('passenger');
   
   const [passenger, setPassenger] = useState<PassengerUser>(() => {
     const saved = localStorage.getItem('swiftride_passenger');

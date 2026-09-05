@@ -1,5 +1,34 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'FC Fast';
+  src: url('/fonts/fc-fast-bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FC Faster';
+  src: url('/fonts/fc-faster-bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FC Fastest';
+  src: url('/fonts/fc-fastest-bold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+.font-fc-fast {
+  font-family: 'FC Fast', 'FC Faster', 'Outfit', sans-serif;
+  letter-spacing: 0.02em;
+}
+
 @layer base {
   body {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;

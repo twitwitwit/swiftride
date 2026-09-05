@@ -57,35 +57,36 @@ export const PassengerHome: React.FC<PassengerHomeProps> = ({
       </div>
 
       {/* Featured Promo Hero Card (Slide 4) */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 text-slate-950 p-4 shadow-md">
-        <div className="relative z-10 max-w-[65%]">
-          <span className="inline-block px-2.5 py-0.5 bg-slate-950/20 backdrop-blur-sm rounded-full text-[10px] font-bold text-slate-950 uppercase tracking-wider mb-1">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-amber-400 via-amber-500 to-amber-600 text-slate-950 p-5 shadow-md">
+        <div className="relative z-10 max-w-[68%]">
+          <span className="inline-block px-3 py-1 bg-slate-950/20 backdrop-blur-sm rounded-full text-[11px] font-bold text-slate-950 uppercase tracking-wider mb-1.5">
             Fast and Safe Travel
           </span>
-          <h3 className="text-base font-black font-display leading-tight">
-            Ride with SwiftRide
+          <h3 className="text-lg font-black font-display leading-tight flex items-center gap-2">
+            <span>Ride with</span>
+            <span className="font-fc-fast text-xl italic tracking-wide text-slate-950">SWIFTRIDE</span>
           </h3>
-          <p className="text-xs font-semibold text-slate-900 mt-1 mb-2.5">
+          <p className="text-sm font-semibold text-slate-900 mt-1.5 mb-3.5">
             Get <span className="font-extrabold text-slate-950 underline decoration-slate-950">50% OFF</span> on your first ride!
           </p>
           <button
             onClick={() => onNavigateToBook()}
-            className="px-3.5 py-1.5 bg-slate-950 text-amber-400 text-xs font-extrabold rounded-xl shadow hover:bg-slate-900 active:scale-95 transition-all flex items-center gap-1.5"
+            className="px-4 py-2 bg-slate-950 text-amber-400 text-xs sm:text-sm font-extrabold rounded-xl shadow-md hover:bg-slate-900 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
           >
             <span>Book Now</span>
-            <ArrowRight className="w-3 h-3" />
+            <ArrowRight className="w-3.5 h-3.5" />
           </button>
         </div>
 
         {/* 50% OFF Badge */}
-        <div className="absolute top-3 right-3 bg-slate-950 text-amber-400 px-2 py-1 rounded-xl shadow-lg border border-amber-300/40 text-center leading-none">
-          <span className="block text-sm font-black">50%</span>
-          <span className="text-[8px] font-extrabold tracking-tight">OFF</span>
+        <div className="absolute top-3.5 right-3.5 bg-slate-950 text-amber-400 px-3 py-1.5 rounded-xl shadow-lg border border-amber-300/40 text-center leading-none">
+          <span className="block text-base font-black">50%</span>
+          <span className="text-[9px] font-extrabold tracking-tight">OFF</span>
         </div>
 
         {/* Vehicle graphic preview in background */}
-        <div className="absolute -right-2 -bottom-2 w-32 h-20 opacity-85 pointer-events-none">
-          <SwiftRideLogo size="sm" variant="icon-only" />
+        <div className="absolute -right-2 -bottom-2 w-36 h-24 opacity-85 pointer-events-none">
+          <SwiftRideLogo size="md" variant="icon-only" />
         </div>
       </div>
 

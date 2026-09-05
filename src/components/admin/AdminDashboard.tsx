@@ -8,14 +8,23 @@ import { AdminBookings } from './AdminBookings';
 import { AdminEarnings } from './AdminEarnings';
 import { AdminSupport } from './AdminSupport';
 import { AdminLiveMap } from './AdminLiveMap';
+import { AdminReports } from './AdminReports';
+import { AdminNotifications } from './AdminNotifications';
+import { AdminSettings } from './AdminSettings';
+import { AdminAuth } from './AdminAuth';
 import { useRide } from '../../context/RideContext';
 
 export const AdminDashboard: React.FC = () => {
   const { pendingApplications, supportTickets } = useRide();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [activeTab, setActiveTab] = useState<AdminTab>('dashboard');
 
   const pendingApplicationsCount = pendingApplications.filter(a => a.status === 'pending').length;
   const openTicketsCount = supportTickets.filter(t => t.status === 'open').length;
+
+  if (!isAuthenticated) {
+    return <AdminAuth onLogin={() => setIsAuthenticated(true)} />;
+  }
 
   const getHeaderDetails = () => {
     switch (activeTab) {
@@ -47,7 +56,7 @@ export const AdminDashboard: React.FC = () => {
   const headerDetails = getHeaderDetails();
 
   return (
-    <div className="flex h-screen w-full bg-black text-slate-200 overflow-hidden font-sans">
+    <div className="flex h-full w-full bg-black text-slate-200 overflow-hidden font-sans">
       {/* Sidebar */}
       <AdminSidebar
         activeTab={activeTab}
@@ -70,10 +79,10 @@ export const AdminDashboard: React.FC = () => {
           {activeTab === 'live_trips' && <AdminLiveMap />}
           {activeTab === 'bookings' && <AdminBookings />}
           {activeTab === 'earnings' && <AdminEarnings />}
-          {activeTab === 'reports' && <AdminOverview onNavigateTab={setActiveTab} />}
+          {activeTab === 'reports' && <AdminReports />}
           {activeTab === 'support' && <AdminSupport />}
-          {activeTab === 'notifications' && <AdminOverview onNavigateTab={setActiveTab} />}
-          {activeTab === 'settings' && <AdminOverview onNavigateTab={setActiveTab} />}
+          {activeTab === 'notifications' && <AdminNotifications />}
+          {activeTab === 'settings' && <AdminSettings />}
         </main>
       </div>
     </div>

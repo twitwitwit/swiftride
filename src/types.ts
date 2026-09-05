@@ -179,13 +179,6 @@ export interface PlatformStat {
 }
 
 export type ActivePlatformView = 
-  | 'web'
-  | 'dual'
   | 'passenger'
   | 'driver'
-  | 'admin'
-  | 'passenger_app' 
-  | 'driver_app' 
-  | 'admin_portal' 
-  | 'web_landing' 
-  | 'split_simulation';
+  | 'admin';

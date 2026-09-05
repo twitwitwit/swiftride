@@ -1,6 +1,6 @@
 {
   "name": "SwiftRide Multi-Platform Ride Booking System",
-  "description": "Comprehensive ride-hailing ecosystem featuring Passenger Mobile App, Driver Mobile App, Web Portal, and Robust Admin Management Dashboard.",
+  "description": "Comprehensive ride-hailing platform featuring the Passenger App, Driver Partner App, and Admin Operations Dashboard.",
   "requestFramePermissions": ["geolocation"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
